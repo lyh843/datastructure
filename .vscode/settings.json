@@ -1,10 +1,10 @@
 {
-    "C_Cpp.intelliSenseEngine": "disabled",
-    "clangd.path": "/usr/bin/clangd",
-    "clangd.arguments": ["--compile-commands-dir=."],
-    "editor.quickSuggestions": {
-        "other": true,
-        "comments": false,
-        "strings": false
-    }
+  "C_Cpp.intelliSenseEngine": "disabled",        // 禁用 Microsoft 的 IntelliSense
+  "clangd.path": "/usr/bin/clangd",              // 确保路径指向你系统上的 clangd
+  "clangd.arguments": ["--compile-commands-dir=."],
+  "editor.quickSuggestions": {
+    "other": true,
+    "comments": false,
+    "strings": false
+  }
 }
