@@ -98,5 +98,29 @@ public:
         }
         std::cout << "\n";
     }; //输出
+    void Union(SeqList<T>& LA, SeqList<T>& LB){
+        int n = LA.Length();
+        int m = LB.Length();
+        for(int i = 0; i < m; i++){
+            T x = LB.Locate(i);
+            int k = LA.Search(x);
+            if(k == -1){
+                LA.Insert(n);
+                n++;
+            }
+        }
+    };
+    void Intersection(SeqList<T>& LA, SeqList<T>& LB){
+        int n = LA.Length();
+        int m = LB.Length();
+        for(int i = 0; i < n; i++){
+            T x = LA.Locate(i);
+            int k = LB.Search(x);
+            if(k == -1){
+                LA.Remove(i);
+                n--;
+            }
+        }
+    }
 };
 
