@@ -1,0 +1,31 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug with gdb (WSL)",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "${fileDirname}/${fileBasenameNoExtension}",
+      "args": [],
+      "cwd": "${fileDirname}",
+      "MIMode": "gdb",
+      "miDebuggerPath": "/usr/bin/gdb",
+      "preLaunchTask": "build current file (wsl)",
+      "setupCommands": [
+        {
+          "description": "Enable pretty-printing for gdb",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        }
+      ],
+      "logging": {
+        "engineLogging": true,        // 输出调试引擎日志
+        "trace": true,                // 跟踪调试过程
+        "traceResponse": true         // 打印调试器响应
+      },
+      "showDisplayString": true,
+      // "showDisassembly": "always",    // 源码不可用时显示汇编
+      "externalConsole": false
+    }
+  ]
+}
