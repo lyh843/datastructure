@@ -19,7 +19,7 @@ public:
     Double_List(){
         head = nullptr;
         tail = nullptr;
-        count = 0;
+        count = 1;
     };
     void left_insert(int _insert_data){
         if(head == nullptr){
@@ -28,6 +28,7 @@ public:
             return;
         }
         List_Node* new_node = new List_Node(_insert_data, count++, head);
+        head->prev = new_node;
         head = new_node;
     };
     void right_insert(int _insert_data){
@@ -37,6 +38,7 @@ public:
             return;
         }
         List_Node* new_node = new List_Node(_insert_data, count++, nullptr, tail);
+        tail->next = new_node;
         tail = new_node;
     }
     void k_left_insert(int _insert_num, int _insert_data){
@@ -59,7 +61,12 @@ public:
         List_Node* target = search(_insert_num);
         List_Node* prev = target->prev;
         List_Node* next = target->next;
-        if(target == head){
+        if(target == head && target == tail){
+            head = nullptr;
+            tail = nullptr;
+            delete target;
+        }
+        else if(target == head){
             head = head->next;
             head->prev = nullptr;
             delete target;
@@ -80,7 +87,7 @@ public:
     };
     List_Node* search(int insert_num){
         List_Node* curr = head;
-        while(curr != head){
+        while(curr != nullptr){
             if(curr->insert_num == insert_num){
                 return curr;
             }
@@ -137,4 +144,5 @@ int main(){
             cout << "wrong insert!\n";
         }
     }
+    dl.print();
 }
