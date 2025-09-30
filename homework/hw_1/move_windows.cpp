@@ -1,7 +1,6 @@
-#include <cstdint>
 #include<iostream>
 #include<vector>
-#include<queue>
+#include<deque>
 using namespace std;
 
 int main(){
@@ -13,20 +12,40 @@ int main(){
         cin >> temp;
         num_list.push_back(temp);
     }
-    queue<int> windows;
-    vector<int> max;
-    max.push_back(INT32_MIN);
-    vector<int> min;
-    min.push_back(INT32_MAX);
-    for(int i = 0; i < width; i++){
-        windows.push(num_list[i]);
-        max[0] = max[0] > num_list[i] ? max[0] : num_list[i];
-        min[0] = min[0] < num_list[i] ? min[0] : num_list[i];
-    }
-    for(int i = width - 1; i < num; i++){
-        int before = windows.front();
-        if(before == max[i - width + 1]){
-            
+    deque<int> q_max;
+    deque<int> q_min;
+    vector<int> v_max;
+    vector<int> v_min;
+    for(int i = 0; i < num; i++){
+        while(!q_max.empty() && num_list[q_max.back()] <= num_list[i]){
+            q_max.pop_back();
+        }
+        q_max.push_back(i);
+        if(q_max.front() == i - width){
+            q_max.pop_front();
+        }
+
+        while(!q_min.empty() && num_list[q_min.back()] >= num_list[i]){
+            q_min.pop_back();
+        }
+        q_min.push_back(i);
+        if(q_min.front() == i -width){
+            q_min.pop_front();
+        }
+
+        if(i + 1 >= width){
+            v_max.push_back(num_list[q_max.front()]);
+            v_min.push_back(num_list[q_min.front()]);
         }
     }
+
+    for(int i = 0; i < v_min.size(); i++){
+        cout << v_min[i] << " ";
+    }
+    cout << "\n";
+    for(int i = 0; i < v_max.size(); i++){
+        cout << v_max[i] << " ";
+    }
+    cout << "\n";
+    
 }
