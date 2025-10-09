@@ -82,6 +82,13 @@ public:
         exit(-1);
     }
     int find(AString& pat, int k) const{
+        for(int i = 0; i < len - pat.len + 1; i++){
+            for(int j = 0; j < pat.len; j++){
+                if(pat.ch[j] != ch[i]) break;
+                if(j == pat.len - 1) return true;
+            }
+        }
+        return false;
     }
     int fast_find(AString& pat, int k, int next[]) const{
         int pos_P = 0, pos_T = k;
