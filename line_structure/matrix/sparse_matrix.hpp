@@ -71,27 +71,27 @@ public:
     }
 
     SparseMatirx fast_transpose() const{   //快速转置
-        int* row_size = new int[cols];
-        int *row_start = new int[cols];
-        SparseMatirx new_matirx(cols, rows, size);
-        if(size > 0){
-            for(int i = 0; i < cols; i++) row_size[i] = 0;
-            for(int i = 0; i < size; i++) row_size[smArray[i].col]++;
-            row_start[0] = 0;
-            for(int i = 1; i < cols; i++){
-                row_start[i] = row_start[i - 1] + row_size[i - 1];
-            }
-            for(int i = 0; i < size; i++){
-                int j = row_start[smArray[i].col];
-                new_matirx.smArray[j].row = smArray[i].col;
-                new_matirx.smArray[j].col = smArray[i].row;
-                new_matirx.smArray[j].value = smArray[i].value;
-                row_start[smArray[i].col]++;
-            }
+        int *rowStart, *rowSize;
+        rowSize = new int[cols];
+        for(int i = 0; i < cols; i++){
+            rowSize[i] = 0;
         }
-        delete []row_size;
-        delete []row_start;
-        return new_matirx;
+        for(int i = 0; i < size; i++){
+            rowSize[smArray[i].col]++;
+        }
+        rowStart = new int[cols];
+        rowStart[0] = 0;
+        for(int i = 1; i < cols; i++){
+            rowStart[i] = rowSize[i - 1] + rowStart[i - 1];
+        }
+        SparseMatirx new_matrix(cols, rows, size);
+        for(int i = 0; i < size; i++){
+            new_matrix.smArray[rowStart[smArray[i].col]].row = smArray[i].col;
+            new_matrix.smArray[rowStart[smArray[i].col]].col = smArray[i].row;
+            new_matrix.smArray[rowStart[smArray[i].col]].value = smArray[i].value;
+            rowStart[smArray[i].col]++;
+        }
+        return new_matrix;
     }
 
     void add(SparseMatirx& a, SparseMatirx& b){    // 矩阵加法
