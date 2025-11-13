@@ -1,2 +1,0 @@
-
-print(local_time)

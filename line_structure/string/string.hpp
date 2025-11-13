@@ -91,19 +91,19 @@ public:
         return false;
     }
     int fast_find(AString& pat, int k, int next[]) const{
-        int pos_T = k, pos_P = 0, len_P = pat.len, len_T = len;
-        while(pos_P < len_P && pos_T < len_T){
+        int pos_P = 0, len_p = pat.len, pos_T = k, len_T = len;
+        while(pos_P < len_p && pos_T < len_T){
             if(pos_P == -1 || pat.ch[pos_P] == ch[pos_T]){
                 pos_P++;
                 pos_T++;
             }
             else pos_P = next[pos_P];
         }
-        if(pos_P < len_P) return -1;
-        else return pos_T - len_P;
+        if(pos_P < len_p) return -1;
+        else return pos_T - len_p;
     }
     void getnext(int next[]) const{
-        int pos_T = 0, pos_P = 0, len_P = len;
+        int pos_P = 0, pos_T = 0, len_P = len;
         while(pos_T < len_P){
             if(pos_P == -1 || ch[pos_P] == ch[pos_T]){
                 pos_P++;
