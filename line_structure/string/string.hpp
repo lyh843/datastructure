@@ -108,7 +108,7 @@ public:
             if(pos_P == -1 || ch[pos_P] == ch[pos_T]){
                 pos_P++;
                 pos_T++;
-                next[pos_T] = pos_P;
+                next[pos_T] = pos_P; 
             }
             else pos_P = next[pos_P];
         }
