@@ -1,0 +1,42 @@
+# 基础风格
+BasedOnStyle: Google
+IndentWidth: 4
+TabWidth: 4
+UseTab: Never
+
+# 换行和括号控制
+AllowShortFunctionsOnASingleLine: false  # 不把短函数写成一行
+BreakBeforeBraces: Attach                
+BraceWrapping:
+  AfterClass: true
+  AfterFunction: true
+  AfterNamespace: true
+  AfterControlStatement: true
+  AfterObjCDeclaration: true
+  SplitEmptyFunction: true
+  SplitEmptyRecord: true
+  SplitEmptyNamespace: true
+
+# 空格和运算符
+SpacesBeforeTrailingComments: 2
+SpaceBeforeParens: ControlStatements       # if/for/while 后有空格
+SpaceAfterCStyleCast: true
+SpaceInEmptyParentheses: false
+BinPackArguments: false                    # 不在一行放太多参数
+BinPackParameters: false
+
+# 换行策略
+ColumnLimit: 100                           # 代码行最长 100 个字符
+AllowAllParametersOfDeclarationOnNextLine: false
+AllowShortFunctionsOnASingleLine: true  # 短函数可写在一行
+AllowShortIfStatementsOnASingleLine: true
+AllowShortLoopsOnASingleLine: true
+AllowShortCaseLabelsOnASingleLine: true
+PenaltyReturnTypeOnItsOwnLine: 10
+
+# 注释和空行
+DeriveLineEnding: true
+ReflowComments: true
+
+# 命名风格（部分 clang-tidy checks 也可控制）
+# 对 clang-format 主要是保持风格统一，可配合 clang-tidy 做命名检查
