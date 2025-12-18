@@ -1,2 +1,2 @@
 
-                    tree[parent2].index = parent1; 
+    result.push_back(levelAns);
