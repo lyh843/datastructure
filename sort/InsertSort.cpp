@@ -1,3 +1,4 @@
+#include <filesystem>
 #include<iostream>
 
 #define NUM 6
@@ -101,6 +102,48 @@ void bubbleSort(int begin = 0, int end = NUM, bool stepPrint = false){
     }
 }
 
+int split(int low = 0, int high = NUM - 1){
+    Node pivot = arr[low];
+    while(low < high){
+        while(low < high && arr[high].key >= pivot.key){
+            high--;
+        }
+        if(low < high) arr[low++] = arr[high];
+        while(low < high && arr[low].key <= pivot.key ){
+            low++;
+        }
+        if(low < high) arr[high--] = arr[low];
+    }
+    arr[low] = pivot;
+    return low;
+}
+
+void quickSort(int begin = 0, int end = NUM - 1){
+    if(begin < end){
+        int w = split(begin, end);
+        quickSort(begin, w - 1);
+        quickSort(w + 1, end);
+    }
+}
+
+void selectSort(int begin = 0, int end = NUM){
+    for(int i = begin; i < end; i++){
+        int k = i;
+        for(int j = i + 1; j < end; j++){
+            if(arr[j].key < arr[k].key){
+                k = j;
+            }
+        }
+        if(k != i){
+            Node temp = arr[i];
+            arr[i] = arr[k];
+            arr[k] = temp;
+        }
+    }
+}
+
+
+
 int main(){
     set();
     InsertSort();
@@ -129,4 +172,12 @@ int main(){
     
     set();
     bubbleSort(0, NUM, true);
+    
+    set();
+    quickSort(0, NUM - 1);
+    print();
+
+    set();
+    selectSort(0, NUM);
+    print();
 }
