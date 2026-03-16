@@ -2,7 +2,7 @@
 #include <cstdio>
 #include<iostream>
 
-#define NUM 100
+#define NUM 105
 
 struct Node{
     int head;
@@ -18,26 +18,33 @@ struct dpNode{
 };
 
 int num = 0;
-int dp[NUM][NUM];
-int sum[NUM][NUM];
+long long dp[NUM][NUM];
 void solve(){
     for(int len = 2; len <= num; len++){
         for(int i = 1; i <= num; i++){
-            int max = 0;
+            long long max = 0;
             for(int k = i; k < i + len - 1; k++){
-                if(k > num) k = k % num;
+                int new_k = k;
+                if(new_k > num) new_k = new_k % num;
                 int result = 0;
                 if((i + len - 1) > num) {
-                    result = dp[i][k] + dp[k + 1][(i + len - 1) % num] + arr[i].head * arr[k].tail * arr[(i + len - 1) % num].tail;
-                }
+                    if(new_k == num){
+                        result = dp[i][new_k] + dp[1][(i + len - 1) % num] + arr[i].head * arr[new_k].tail * arr[(i + len - 1) % num].tail;
+                    }
+                    else{
+                        result = dp[i][new_k] + dp[new_k + 1][(i + len - 1) % num] + arr[i].head * arr[new_k].tail * arr[(i + len - 1) % num].tail;
+                    }
+                }    
                 else{
-                    result = dp[i][k] + dp[k + 1][i + len - 1] + arr[i].head * arr[k].tail * arr[i + len - 1].tail;
+                    if(new_k == num) result = dp[i][new_k] + dp[1][i + len - 1] + arr[i].head * arr[new_k].tail * arr[i + len - 1].tail;
+                    else result = dp[i][new_k] + dp[new_k + 1][i + len - 1] + arr[i].head * arr[new_k].tail * arr[i + len - 1].tail;
                 } 
                 if(max < result){
                     max = result;
                 }
             }
-            dp[i][i + len - 1] = max;
+            if((i + len - 1) > num) dp[i][(i + len - 1) % num] = max;
+            else dp[i][i + len - 1] = max; 
         }
     }
 }
@@ -54,11 +61,11 @@ int main(){
         dp[i][i] = 0;
     }
     solve();
-    int max_result = dp[1][num];
+    long long max_result = dp[1][num];
     for(int i = 2; i <= num; i++){
         if(dp[i][i - 1] > max_result){
             max_result = dp[i][i - 1];
         }
     }
-    printf("%d", max_result);
+    std::cout << max_result << "\n";
 }
